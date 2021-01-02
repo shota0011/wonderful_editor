@@ -14,4 +14,7 @@
 #  index_articles_on_user_id  (user_id)
 #
 class Article < ApplicationRecord
+  has_many :article_likes, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  belongs_to :user
 end
