@@ -16,5 +16,10 @@
 require "rails_helper"
 
 RSpec.describe Article, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  context "本文が5000文字以内のとき" do
+  end
+
+  context "本文が5000文字以上のとき" do
+  end
+
 end
