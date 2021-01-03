@@ -41,4 +41,9 @@ class User < ApplicationRecord
   has_many :articles, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :article_likes, dependent: :destroy
+
+  validates :name, presence: true
+  validates :email, presence: true, uniqueness: { case_sensitive: false }, confirmation: true
+  validates :password, presence: true, length: { in:6..20 }
+
 end
