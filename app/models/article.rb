@@ -18,5 +18,5 @@ class Article < ApplicationRecord
   has_many :comments, dependent: :destroy
   belongs_to :user
 
-  validates :body, length: { maximum: 5000 }
+  validates :title, presence: true
 end
