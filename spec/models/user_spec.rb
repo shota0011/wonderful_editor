@@ -25,7 +25,7 @@ RSpec.describe User, type: :model do
   context "password が未記入" do
     let(:user) { build(:user, password: nil) }
     it "エラーが発生する" do
-      expect(user).to be_valid
+      expect(user).to be_invalid
     end
   end
 end
