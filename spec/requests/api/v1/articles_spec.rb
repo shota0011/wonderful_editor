@@ -25,7 +25,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
         res = JSON.parse(response.body)
         expect(res[:id]).to eq article.id
         binding.pry
-      
+
         expect(response).to have_http_status(:ok)
       end
     end
