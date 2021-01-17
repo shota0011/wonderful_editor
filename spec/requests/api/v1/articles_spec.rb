@@ -3,18 +3,38 @@ require "rails_helper"
 RSpec.describe "Api::V1::Articles", type: :request do
   describe "GET /articles" do
     subject { get(api_v1_articles_path) }
-
     before { create_list(:article, 3) }
-    # 記事一覧を更新順に並べる
-    # let(:article) { create(:article, :updated_at) }
-    
-    fit "記事の値が取得出来る" do
+    it "記事一覧を取得する" do
       subject
-      res = JSON.parse(response.body)
-      # このテスト(expect)で何を確認すべきか
-      # 記事の一覧が更新順にかえって来ることを確認する
       expect(response).to have_http_status(:ok)
-      expect(res[0].keys).to eq ["id", "title", "updated_at", "user"]
+    end
+  end
+
+
+  describe "GET /articles/:id" do
+    subject { get (api_v1_article_path(article_id)) }
+    #正常系
+    context "指定した id のユーザーが存在するとき" do
+      # let!(:article){ get(api_v1_articles_path(:article_id)) }
+      # let!(:article){ create_list(:article, 3) }
+      let(:article) { create(:article)}
+      let(:article_id){ article.id }
+
+      fit "対象の id 記事を取得する" do
+        subject
+        res = JSON.parse(response.body)
+        expect(res[:id]).to eq article.id
+        binding.pry
+      
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    #異常系
+    context "指定した id の記事が見つからない" do
+      it "ユーザーが見つからない" do
+
+      end
     end
   end
 end
