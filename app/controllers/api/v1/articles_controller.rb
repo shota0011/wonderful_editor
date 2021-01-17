@@ -9,6 +9,5 @@ module Api::V1
       article = Article.find(params[:id])
       render json: article
     end
-
   end
 end
