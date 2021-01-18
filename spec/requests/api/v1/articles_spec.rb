@@ -13,18 +13,18 @@ RSpec.describe "Api::V1::Articles", type: :request do
 
   describe "GET /articles/:id" do
     subject { get (api_v1_article_path(article_id)) }
-    #正常系
+    # 正常系
     context "指定した id のユーザーが存在するとき" do
-      # let!(:article){ get(api_v1_articles_path(:article_id)) }
-      # let!(:article){ create_list(:article, 3) }
       let(:article) { create(:article)}
       let(:article_id){ article.id }
 
-      fit "対象の id 記事を取得する" do
+      it "対象のユーザー id の記事を取得する" do
         subject
         res = JSON.parse(response.body)
-        expect(res[:id]).to eq article.id
-        binding.pry
+        expect(res["id"]).to eq article.id
+        expect(res["title"]).to eq article.title
+        expect(res["body"]).to eq article.body
+        expect(res["updated_at"]).to be_present
 
         expect(response).to have_http_status(:ok)
       end
@@ -32,8 +32,9 @@ RSpec.describe "Api::V1::Articles", type: :request do
 
     #異常系
     context "指定した id の記事が見つからない" do
-      it "ユーザーが見つからない" do
-
+      let(:article_id)  { 999999 }
+      fit "ユーザー id が見つからない" do
+        expect{ subject }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end
