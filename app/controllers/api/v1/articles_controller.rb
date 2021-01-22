@@ -15,11 +15,10 @@ module Api::V1
       render json :article
     end
 
-    def private
+    private
+
       def article_params
         params.require(:article).permit(:title, :body)
       end
-    end
-
   end
 end
