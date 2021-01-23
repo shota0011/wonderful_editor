@@ -40,4 +40,16 @@ RSpec.describe "Api::V1::Articles", type: :request do
       end
     end
   end
+
+  describe "P0ST/articles" do
+    subject { get(api_v1_articles_path) }
+
+    context "userテーブルの一番初めのユーザー" do
+      it "記事のレコードが1つ作成される"do
+        expect Article.stub{ subject }.to change { Article.count }.by(1)
+        POST :create, title:"", body:""
+
+      end
+    end
+  end
 end
