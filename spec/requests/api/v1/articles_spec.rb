@@ -33,7 +33,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
     end
 
     # 異常系
-    context "指定した id の記事が見つからない" do
+    context "指定した id の記事が存在しないとき" do
       let(:article_id) { 999999 }
       it "ユーザー id が見つからない" do
         expect { subject }.to raise_error(ActiveRecord::RecordNotFound)
@@ -59,4 +59,31 @@ RSpec.describe "Api::V1::Articles", type: :request do
       end
     end
   end
+
+  describe "PATCH /api/v1/articles/:id" do
+    subject { patch(api_v1_article_path(article.id), params: params) }
+
+    let (:params) { { article: { title: Faker::Lorem.word, created_at: 1.day.ago } } }
+    let (:current_user) { create(:user) }
+
+    context "自分の記事のレコードを更新しようとするとき" do
+      let (:article) { create(:article, user:current_user) }
+
+      fit "更新した値が書き換えられている" do
+        expect { subject }.to change { current_user.article.find(article_id).title }.from(article.title).to(params[:article][:title]) &
+                              not_change { current_user.article.find(article_id).body} &
+                              not_change { current_user.article.find(article_id).created_at}
+      end
+    end
+
+
+    context "更新していない値はそのままの状態に" do
+
+    end
+    context "更新した値のみ書き換えて、それ以外はそのままの状態に" do
+
+    end
+  end
+
+
 end
