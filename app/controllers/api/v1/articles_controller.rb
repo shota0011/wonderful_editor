@@ -21,6 +21,11 @@ module Api::V1
       render json: article, serializer: Api::V1::ArticleSerializer
     end
 
+    def destory
+      article = current_user.article.find(params[:id])
+      article.destory!
+    end
+
     private
 
       def article_params
