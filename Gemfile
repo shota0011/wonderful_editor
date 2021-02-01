@@ -59,3 +59,4 @@ gem "active_model_serializers", "~> 0.10.0"
 
 # devise_token_auth
 gem "devise_token_auth"
+gem "devise"

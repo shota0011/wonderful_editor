@@ -45,5 +45,6 @@ module WonderfulEditor
 
     config.api_only = true
     config.generators.system_tests = nil
+    config.middleware.use ActionDispatch::Flash
   end
 end
