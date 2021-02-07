@@ -3,11 +3,10 @@ require "rails_helper"
 RSpec.describe "Api/V1::Auth::Registrations", type: :request do
   describe "POST /v1/auth" do
     subject { post(api_v1_user_registration_path, params: params) }
-    #正常系
     context "ユーザーの情報がすべて入力されている" do
       let(:params) { attributes_for(:user) }
       it "新規登録が出来る" do
-        expect{ subject }.to change { User.count }.by(1)
+        expect { subject }.to change { User.count }.by(1)
         expect(response).to have_http_status(:ok)
       end
 
@@ -22,19 +21,17 @@ RSpec.describe "Api/V1::Auth::Registrations", type: :request do
       end
     end
 
-    # 異常系
     context "nameが存在しないとき" do
       let(:params) { attributes_for(:user, name: nil) }
       it "エラーになる" do
         # binding.pry
-        expect { subject }.to change { User.count}.by(0)
+        expect { subject }.to change { User.count }.by(0)
         res = JSON.parse(response.body)
         expect(res["errors"]["name"]).to include "can't be blank"
         expect(response).to have_http_status(:unprocessable_entity)
         # binding.pry
       end
     end
-
 
     context "emailが存在しないとき" do
       let(:params) { attributes_for(:user, email: nil) }
@@ -46,7 +43,7 @@ RSpec.describe "Api/V1::Auth::Registrations", type: :request do
       end
     end
 
-    fcontext "passwordが存在しないとき" do
+    context "passwordが存在しないとき" do
       let(:params) { attributes_for(:user, password: nil) }
       it "エラーになる" do
         expect { subject }.to change { User.count }.by(0)
