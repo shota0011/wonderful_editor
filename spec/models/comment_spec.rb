@@ -3,7 +3,7 @@
 # Table name: comments
 #
 #  id         :bigint           not null, primary key
-#  body       :text
+#  body       :text(65535)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  article_id :bigint           not null
