@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "api/v1::auth::Sessions", type: :request do
-  fdescribe "name,email,passwordのすべてが入力されている" do
+  describe "POST /api/v1/auth/sign_in" do
     subject { post(api_v1_user_session_path, params: params) }
 
     let(:user) { create(:user) }
