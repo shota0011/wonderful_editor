@@ -24,12 +24,10 @@ RSpec.describe "Api/V1::Auth::Registrations", type: :request do
     context "nameが存在しないとき" do
       let(:params) { attributes_for(:user, name: nil) }
       it "エラーになる" do
-        # binding.pry
         expect { subject }.to change { User.count }.by(0)
         res = JSON.parse(response.body)
         expect(res["errors"]["name"]).to include "can't be blank"
         expect(response).to have_http_status(:unprocessable_entity)
-        # binding.pry
       end
     end
 
