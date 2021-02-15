@@ -47,11 +47,10 @@ RSpec.describe "Api::V1::Articles", type: :request do
     context "userテーブルの一番初めのユーザー" do
       let(:params) { { article: attributes_for(:article) } }
       let(:current_user) { create(:user) }
-
       before { allow_any_instance_of(Api::V1::BaseApiController).to receive(:current_user).and_return(current_user) }
 
       it "記事のレコードが1つ作成される" do
-        expect { subject }.to change { Article.count }.by(1)
+        expect { subject }.to change { Article.where(user_id: current_user.id).count }.by(1)
         res = JSON.parse(response.body)
         expect(res["title"]).to eq params[:article][:title]
         expect(res["body"]).to eq params[:article][:body]
