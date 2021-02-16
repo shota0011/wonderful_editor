@@ -1,8 +1,8 @@
 test:
-  adapter: postgresql
+  adapter: mysql
   encoding: unicode
   pool: 5
   database: daily-report-api_test
-  username: postgres
-  password: postgres
+  username: mysql
+  password: mysql
   host: localhost
