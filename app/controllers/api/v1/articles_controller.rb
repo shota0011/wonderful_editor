@@ -22,9 +22,9 @@ module Api::V1
       render json: article, serializer: Api::V1::ArticleSerializer
     end
 
-    def destory
-      article = current_user.article.find(params[:id])
-      article.destory!
+    def destroy
+      article = current_user.articles.find(params[:id])
+      article.destroy!
     end
 
     private
