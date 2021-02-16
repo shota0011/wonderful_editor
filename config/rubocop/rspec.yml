@@ -47,6 +47,7 @@ RSpec/InstanceVariable:
 # パフォーマンスの問題さえ無ければ 1 example 1 assertion にしておく方が
 # 読みやすいテストになりやすいので、そこはレビューで担保していく必要がある。
 RSpec/MultipleExpectations:
+  Max: 8
   AggregateFailuresByDefault: false
   #公式ドキュメント見る
 

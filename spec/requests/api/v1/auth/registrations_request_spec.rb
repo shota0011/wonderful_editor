@@ -3,8 +3,10 @@ require "rails_helper"
 RSpec.describe "Api/V1::Auth::Registrations", type: :request do
   describe "POST /v1/auth" do
     subject { post(api_v1_user_registration_path, params: params) }
+
     context "ユーザーの情報がすべて入力されている" do
       let(:params) { attributes_for(:user) }
+
       it "新規登録が出来る" do
         expect { subject }.to change { User.count }.by(1)
         expect(response).to have_http_status(:ok)
