@@ -38,6 +38,28 @@ RSpec.describe Article, type: :model do
     end
   end
 
-  context ""
+  context "本文とタイトルが記入されている" do
+    let(:article) { build(:article) }
+    it "下書きが作成される" do
+      expect(article).to be_valid
+      expect(article.status).to eq "draft"
+    end
+  end
 
+  context "ステータスが下書きのとき" do
+    let(:article) { build(:article, :draft) }
+
+    it "下書きが保存される" do
+      expect(article).to be_valid
+      expect(article.status).to eq "draft"
+    end
+  end
+
+  context "ステータスが公開のとき" do
+    let(:article) { build(:article, :published) }
+    it "記事が公開することが出来る" do
+      expect(article).to be_valid
+      expect(article.status).to eq "published"
+    end
+  end
 end
