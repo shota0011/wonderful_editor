@@ -17,7 +17,7 @@ RSpec.describe "api/v1::auth::Sessions", type: :request do
         expect(response).to have_http_status(:ok)
       end
     end
-    
+
     context "emailが一致しない" do
       let(:params) { attributes_for(:user, email: "foo") }
 
