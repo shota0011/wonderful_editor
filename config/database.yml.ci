@@ -1,6 +1,6 @@
 test:
   adapter: mysql2
-  encoding: unicode
+  encoding: utf8
   pool: 5
   database: daily-report-api_test
   username: mysql2
