@@ -7,7 +7,10 @@ module Api::V1
     end
 
     def show
-      article = Article.find(params[:id])
+      binding.pry
+      article = Article.find(params[:id], status: :published)
+      article.select{ |select| select("draft") }
+      article.select{ |select| select("published") }
       render json: article
     end
 
