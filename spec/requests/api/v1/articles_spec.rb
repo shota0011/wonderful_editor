@@ -4,11 +4,22 @@ RSpec.describe "Api::V1::Articles", type: :request do
   describe "GET /articles" do
     subject { get(api_v1_articles_path) }
 
-    before { create_list(:article, 3) }
+    let(:article1) { create(:article, :published, updated_at: 1.days.ago) }
+    let(:article2) { create(:article, :published, updated_at: 2.days.ago) }
+    let(:article3) { create(:article, :published) }
 
-    it "記事一覧を取得する" do
+    # before { create(:article, :draft) }
+
+    fit "公開された記事一覧を取得する" do
       subject
+      binding.pry
+      res = JSON.parse(response.body)
+
       expect(response).to have_http_status(:ok)
+      expect(res.length).to eq 3
+      expect(res.map {|d| d["id"] }).to eq [article3.id, article1.id, article2.id]
+      expect(res[0].keys).to eq ["id", "title", "updated_at", "user"]
+      expect(res[0]["user"].keys).to eq ["id", "name", "email"]
     end
   end
 
@@ -17,7 +28,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
     # 正常系
 
     context "指定した id のユーザーが存在するとき" do
-      let(:article) { create(:article) }
+      let(:article) { create(:article, :published) }
       let(:article_id) { article.id }
 
       it "任意の記事の値が取得出来る" do
@@ -44,12 +55,13 @@ RSpec.describe "Api::V1::Articles", type: :request do
   describe "P0ST/articles" do
     subject { post(api_v1_articles_path, params: params, headers: headers) }
 
-    context "userテーブルの一番初めのユーザー" do
-      let(:params) { { article: attributes_for(:article) } }
-      let(:current_user) { create(:user) }
-      let(:headers) { current_user.create_new_auth_token }
+    let(:current_user) { create(:user) }
+    let(:headers) { current_user.create_new_auth_token }
 
-      it "記事のレコードが1つ作成される" do
+    context "公開された記事を作成するとき" do
+      let(:params) { { article: attributes_for(:article, :published) } }
+
+      it "記事のレコードが作成される" do
         expect { subject }.to change { Article.where(user_id: current_user.id).count }.by(1)
         res = JSON.parse(response.body)
         expect(res["title"]).to eq params[:article][:title]
