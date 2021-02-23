@@ -8,11 +8,10 @@ RSpec.describe "Api::V1::Articles", type: :request do
     let(:article2) { create(:article, :published, updated_at: 2.days.ago) }
     let(:article3) { create(:article, :published) }
 
-    # before { create(:article, :draft) }
+    before { create(:article, :draft) }
 
     fit "公開された記事一覧を取得する" do
       subject
-      binding.pry
       res = JSON.parse(response.body)
 
       expect(response).to have_http_status(:ok)
