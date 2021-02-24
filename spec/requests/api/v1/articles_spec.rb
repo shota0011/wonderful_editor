@@ -10,7 +10,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
 
     before { create(:article, :draft) }
 
-    fit "公開された記事一覧を取得する" do
+    it "公開された記事一覧を取得する" do
       subject
       res = JSON.parse(response.body)
 
