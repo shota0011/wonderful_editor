@@ -10,7 +10,6 @@ RSpec.describe "Api::V1::Articles", type: :request do
 
     before { create(:article, :draft) }
 
-
     it "公開された記事一覧を取得する" do
       subject
       res = JSON.parse(response.body)
@@ -67,6 +66,16 @@ RSpec.describe "Api::V1::Articles", type: :request do
         expect(res["title"]).to eq params[:article][:title]
         expect(res["body"]).to eq params[:article][:body]
         expect(response).to have_http_status(:ok)
+      end
+    end
+
+    fcontext "下書きを指定して作成するとき" do
+      let(:params) { { article: attributes_for(:article, :draft) } }
+
+      it "下書きが作成される" do
+        subject
+        res = JSON.parse(response.body)
+        expect(res["status"]).to eq "draft"
       end
     end
   end
