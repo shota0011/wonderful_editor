@@ -69,7 +69,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
       end
     end
 
-    fcontext "下書きを指定して作成するとき" do
+    context "下書きを指定して作成するとき" do
       let(:params) { { article: attributes_for(:article, :draft) } }
 
       it "下書きが作成される" do
