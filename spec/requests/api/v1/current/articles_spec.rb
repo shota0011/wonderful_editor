@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "Api::V1::Current::Articles", type: :request do
   describe "GET /api/v1/current/articles" do
@@ -7,10 +7,10 @@ RSpec.describe "Api::V1::Current::Articles", type: :request do
     let(:headers) { current_user.create_new_auth_token }
     let(:current_user) { create(:user) }
 
-    fcontext "記事が複数存在する時" do
-      let!(:article1) { create(:article, :published, user: current_user, updated_at: 1.day.ago)}
-      let!(:article2) { create(:article, :published, user: current_user, updated_at: 2.day.ago)}
-      let!(:article3) { create(:article, :published, user: current_user)}
+    context "記事が複数存在する時" do
+      let!(:article1) { create(:article, :published, user: current_user, updated_at: 1.day.ago) }
+      let!(:article2) { create(:article, :published, user: current_user, updated_at: 2.day.ago) }
+      let!(:article3) { create(:article, :published, user: current_user) }
 
       before do
         create(:article, :draft, user: current_user)
