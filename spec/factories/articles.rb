@@ -3,9 +3,9 @@
 # Table name: articles
 #
 #  id         :bigint           not null, primary key
-#  body       :text(65535)
-#  status     :string(255)      default(NULL)
-#  title      :string(255)
+#  body       :text
+#  status     :string           default("draft")
+#  title      :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  user_id    :bigint

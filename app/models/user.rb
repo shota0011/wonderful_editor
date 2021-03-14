@@ -7,19 +7,19 @@
 #  id                     :bigint           not null, primary key
 #  allow_password_change  :boolean          default(FALSE)
 #  confirmation_sent_at   :datetime
-#  confirmation_token     :string(255)
+#  confirmation_token     :string
 #  confirmed_at           :datetime
-#  email                  :string(255)
-#  encrypted_password     :string(255)      default(""), not null
-#  image                  :string(255)
-#  name                   :string(255)
-#  provider               :string(255)      default("email"), not null
+#  email                  :string
+#  encrypted_password     :string           default(""), not null
+#  image                  :string
+#  name                   :string
+#  provider               :string           default("email"), not null
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
-#  reset_password_token   :string(255)
+#  reset_password_token   :string
 #  tokens                 :json
-#  uid                    :string(255)      default(""), not null
-#  unconfirmed_email      :string(255)
+#  uid                    :string           default(""), not null
+#  unconfirmed_email      :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
