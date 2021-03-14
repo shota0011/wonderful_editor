@@ -27,7 +27,7 @@ RSpec.describe Article, type: :model do
   context "タイトルが未記入" do
     let(:article) { build(:article, title: nil) }
     it "エラーが発生" do
-      expect(article).to be_invalid
+      expect(article).to be_valid
     end
   end
 
